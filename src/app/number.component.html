@@ -1,0 +1,47 @@
+<div>
+  <h1>Numbers Form</h1>
+  <form #numbersForm="ngForm" (ngSubmit)="handleSubmit(numbersForm)">
+    <div class="form-group">
+      <label for="first">First Number:</label>
+      <input type="text" class="form-control" name="first" pattern="[0-9]*"
+        ngModel #first="ngModel" required [ngClass]="{'bold':first.invalid}">
+      <div *ngIf="first.invalid && first.touched" class="alert alert-danger">
+        <div *ngIf="first.errors?.required" >
+          First number is required
+        </div>
+         <div *ngIf="first.errors?.pattern">
+           The value has to be numeric and should be a whole number
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="second">Second Number:</label>
+        <input type="text" class="form-control" name="second" [ngClass]="{'bold':second.invalid}"
+          ngModel #second="ngModel" required  pattern="[0-9]*">       
+        <div *ngIf="second.invalid && second.touched" class="alert alert-danger">
+            <div *ngIf="second.errors?.required" >
+              Second number is required
+            </div>
+            <div *ngIf="second.errors?.pattern">
+                The value has to be numeric and should be a whole number
+             </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="numbersForm.invalid">Submit</button>
+  </form>
+</div>
+<div>
+  <h2>Saved Numbers</h2>
+  <table class="table table-striped">
+    <tr>
+      <th>First</th>
+      <th>Second</th>
+      <th>Result</th>
+    </tr>
+    <tr *ngFor="let rec of records">
+      <td>{{rec.first}}</td>
+      <td>{{rec.second}}</td>
+      <td>{{rec.result}}</td>
+    </tr>
+  </table>
+</div>
